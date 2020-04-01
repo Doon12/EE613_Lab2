@@ -29,8 +29,11 @@ int main(int argc, char* argv[]) {
 
 	// (a) socket
 	listenfd = socket(AF_INET, SOCK_STREAM, 0);
-	printf("socket create\n");
 	printf("socket file descriptor : %d\n", listenfd);
+	if (listenfd < 0) {
+		error("socket creation failed on server");
+	}
+	printf("socket create\n");
 
 	bzero(&servaddr, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;

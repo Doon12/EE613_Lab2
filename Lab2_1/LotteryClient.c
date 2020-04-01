@@ -23,6 +23,9 @@ int main(int argc, char* argv[]) {
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	printf("socket create\n");
 	printf("socket file descriptor : %d\n", sockfd);
+	if (sockfd < 0) {
+		error("socket creation failed on client");
+	}
 
 	bzero(&servaddr, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
@@ -32,6 +35,9 @@ int main(int argc, char* argv[]) {
 	// (h) connect()
 	int connectResult = connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
 	printf("connect Result %d\n", connectResult);
+	if (connectResult < 0) {
+		error("connection failed on client");
+	}
 
 	while(1) {
 		int send_msg, len;
